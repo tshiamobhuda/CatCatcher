@@ -10,7 +10,7 @@
     <body>
 
         <script type="text/javascript">
-            var game = new Phaser.Game(800,600,Phaser.Canvas, {
+            var game = new Phaser.Game(800,600,Phaser.Canvas,null,{
                 preload: preload,
                 create: create,
                 update: update
@@ -41,11 +41,30 @@
                 var style = {font: "20px Arial", fill: "#fff"};
                 txtScore = game.add.text(10, 10, score.toString(), style);
 
-                cursors =  game.input.keyboard.createCursorkeys();
+                cursors =  game.input.keyboard.createCursorKeys();
             }
 
             function update() {
                 // run game loop code
+                if (cursors.left.isDown) {
+                    catcher.x -= 5;
+                    catcher.scale.x = 1;
+                }
+
+                if (cursors.right.isDown) {
+                    catcher.x += 5;
+                    catcher.scale.x = -1;
+                }
+
+                if (cursors.up.isDown) {
+                    catcher.y -= 5;
+                }
+
+                if (cursors.down.isDown) {
+                    catcher.y += 5;
+                }
+
+                game.physics.arcade.overlap(catcher, cat, catHitHandler);
             }
         </script>
 
